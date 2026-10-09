@@ -14,10 +14,10 @@ Standalone comparison workload repository in the five-repository demo:
 
 ```python
 from datetime import datetime, timezone
-print(datetime.now(timezone.utc).date().isoformat())
+print(datetime.now(timezone.utc).isoformat(timespec="seconds"))
 ```
 
-It prints today's UTC date as `YYYY-MM-DD`, with no wheel, custom Environment,
+It prints the current UTC date and time as an ISO 8601 timestamp, with no wheel, custom Environment,
 Lakehouse, notebook `%pip`, or external runtime package. Fabric still uses
 a Spark/Python notebook and needs an active supported capacity; Python 3.11
 is the **CI/deployment tooling** version, not a custom Fabric runtime.

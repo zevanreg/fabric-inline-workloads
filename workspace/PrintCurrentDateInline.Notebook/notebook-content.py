@@ -13,7 +13,7 @@
 
 from datetime import datetime, timezone
 
-print(datetime.now(timezone.utc).date().isoformat())
+print(datetime.now(timezone.utc).isoformat(timespec="seconds"))
 
 # METADATA ********************
 
