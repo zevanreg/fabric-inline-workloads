@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "PrintCurrentDateInline",
+    "description": "Print today's UTC date using only Python's standard library."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "bbda76d6-b9c1-45a3-80c4-0e1740586d97"
+  }
+}

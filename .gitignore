@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+.staging/
+artifacts/
+deployment-manifest.json
+fabric_cicd*.log
