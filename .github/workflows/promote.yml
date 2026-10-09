@@ -1,0 +1,22 @@
+name: Promote on main
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  dev:
+    uses: ./.github/workflows/deploy.yml
+    with:
+      stage: dev
+  test:
+    needs: dev
+    uses: ./.github/workflows/deploy.yml
+    with:
+      stage: test
+  prod:
+    needs: test
+    uses: ./.github/workflows/deploy.yml
+    with:
+      stage: prod

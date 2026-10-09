@@ -1,5 +1,10 @@
 name: Deploy inline workloads
 on:
+  workflow_call:
+    inputs:
+      stage:
+        required: true
+        type: string
   workflow_dispatch:
     inputs:
       stage:
@@ -7,10 +12,6 @@ on:
         required: true
         type: choice
         options: [dev, test, prod]
-      ref:
-        description: Full 40-character workload commit SHA to promote
-        required: true
-        type: string
 permissions:
   contents: read
   id-token: write
@@ -23,21 +24,12 @@ jobs:
     timeout-minutes: 45
     environment: ${{ inputs.stage }}
     env:
-      TARGET_REF: ${{ inputs.ref }}
       STAGE: ${{ inputs.stage }}
       FABRIC_WORKSPACE_ID: ${{ vars.FABRIC_WORKSPACE_ID }}
     steps:
-      - name: Require immutable promotion SHA
-        shell: bash
-        run: |
-          [[ "$TARGET_REF" =~ ^[0-9a-fA-F]{40}$ ]] || { echo "ref must be a full commit SHA"; exit 1; }
       - uses: actions/checkout@v4
         with:
-          ref: ${{ inputs.ref }}
           persist-credentials: false
-      - name: Confirm exact checkout
-        shell: bash
-        run: test "$(git rev-parse HEAD)" = "${TARGET_REF,,}"
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
