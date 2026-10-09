@@ -45,7 +45,7 @@ class WorkloadTests(unittest.TestCase):
         self.assertEqual(metadata[1]["language"], "python")
         self.assertEqual(len(list((ROOT / "workspace").glob("*.Environment"))), 0)
 
-    def test_inline_prints_deterministic_utc_date(self):
+    def test_inline_prints_deterministic_utc_datetime(self):
         module = ModuleType("datetime")
         module.datetime = Mock()
         module.datetime.now.return_value = datetime(2026, 10, 9, 0, 0, tzinfo=timezone.utc)
@@ -54,7 +54,7 @@ class WorkloadTests(unittest.TestCase):
         source = (ROOT / "workspace/PrintCurrentDateInline.Notebook/notebook-content.py").read_text()
         with patch.dict(sys.modules, {"datetime": module}), contextlib.redirect_stdout(output):
             exec(compile(source, "notebook", "exec"), {})
-        self.assertEqual(output.getvalue(), "2026-10-09\n")
+        self.assertEqual(output.getvalue(), "2026-10-09T00:00:00+00:00\n")
         module.datetime.now.assert_called_once_with(timezone.utc)
 
     def arguments(self):
