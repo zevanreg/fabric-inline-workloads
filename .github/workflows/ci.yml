@@ -1,7 +1,7 @@
 name: Offline CI
 on:
   push:
-    branches: [main]
+    branches: [dev]
   pull_request:
 permissions:
   contents: read
